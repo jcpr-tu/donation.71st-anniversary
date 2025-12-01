@@ -10,6 +10,8 @@
   
   <link rel="icon" href="https://quota.jc.tu.ac.th/images/jc_logo.png" type="image/png">
 
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap');
 
@@ -139,31 +141,44 @@
       return /Line/i.test(navigator.userAgent);
     }
 
-    // --- ฟังก์ชันสำหรับปุ่ม (จาก E-learning) ---
+    // --- [แก้ไข] ปรับฟังก์ชันสำหรับปุ่มให้แจ้งเตือนปิดรับบริจาค ---
     function redirectToApp() {
-
-      // !!! 9. แก้ไขส่วนนี้ !!!
-      // ให้ใส่ URL ที่ได้จากการ Deploy ระบบบริจาค (Code.gs) ของคุณ
-      // หากคุณมีหลายตัว (เพื่อ Load Balance) ก็ใส่ให้ครบ
-      const scriptUrls = [
-        'https://script.google.com/macros/s/AKfycbxyUh0hsW25XSCs0wa-Dpfx_JTmflp2sqInYTKsGTRf9g_VIdgIj1fVzsllzRdPFSZQXA/exec'
-      ];
-
-      // โค้ดที่เหลือทำงานเหมือนเดิม
-      const randomIndex = Math.floor(Math.random() * scriptUrls.length);
-      const selectedUrl = scriptUrls[randomIndex];
-      const safariUrl = 'x-safari-' + selectedUrl;
-
-      let finalUrl;
-
-      if (isIOS() && (isFacebookApp() || isLineApp())) {
-        finalUrl = safariUrl;
-      } else {
-        finalUrl = selectedUrl;
-      }
-
-      window.open(finalUrl, '_blank');
+      Swal.fire({
+        icon: 'info', // ไอคอน (info, warning, error, success)
+        title: 'ปิดรับบริจาค',
+        text: 'ระบบได้ปิดรับการบริจาคแล้ว ขออภัยในความไม่สะดวก',
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#743d88' // สีม่วงตามธีมเว็บ
+      });
     }
+
+    
+
+    // --- ฟังก์ชันสำหรับปุ่ม (จาก E-learning) ---
+    // function redirectToApp() {
+
+    //   // !!! 9. แก้ไขส่วนนี้ !!!
+    //   // ให้ใส่ URL ที่ได้จากการ Deploy ระบบบริจาค (Code.gs) ของคุณ
+    //   // หากคุณมีหลายตัว (เพื่อ Load Balance) ก็ใส่ให้ครบ
+    //   const scriptUrls = [
+    //     'https://script.google.com/macros/s/AKfycbxyUh0hsW25XSCs0wa-Dpfx_JTmflp2sqInYTKsGTRf9g_VIdgIj1fVzsllzRdPFSZQXA/exec'
+    //   ];
+
+    //   // โค้ดที่เหลือทำงานเหมือนเดิม
+    //   const randomIndex = Math.floor(Math.random() * scriptUrls.length);
+    //   const selectedUrl = scriptUrls[randomIndex];
+    //   const safariUrl = 'x-safari-' + selectedUrl;
+
+    //   let finalUrl;
+
+    //   if (isIOS() && (isFacebookApp() || isLineApp())) {
+    //     finalUrl = safariUrl;
+    //   } else {
+    //     finalUrl = selectedUrl;
+    //   }
+
+    //   window.open(finalUrl, '_blank');
+    // }
   </script>
 
 </body>
